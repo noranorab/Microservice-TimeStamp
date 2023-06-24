@@ -46,12 +46,6 @@ app.get("/api/:date?", function (req, res) {
 
 app.get("/api/:milliseconds?", function (req, res) {
   const {milliseconds} = req.params
-  console.log(req.params)
-  console.log("milliseconds:", milliseconds);
-
-  const parsed = parseInt(milliseconds, 10)
-  console.log(parsed)
-
   if (milliseconds){
     const date = new Date(parseInt(milliseconds, 10));
 
