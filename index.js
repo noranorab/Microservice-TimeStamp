@@ -24,6 +24,55 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api/:date?", function (req, res) {
+  const {date} = req.params;
+
+  if (date){
+    const timeStamp = Date.parse(date)
+
+    if (timeStamp){
+      res.json({unix: timeStamp, utc: new Date(timeStamp)})
+    }else{
+      res.json({error : "Invalid Date"})
+    }
+  }else{
+    const currentDate = new Date();
+    res.json({
+      unix: currentDate.getTime(),
+      utc: currentDate.toUTCString(),
+    })
+  }
+});
+
+app.get("/api/:milliseconds?", function (req, res) {
+  const {milliseconds} = req.params
+  console.log(req.params)
+  console.log("milliseconds:", milliseconds);
+
+  const parsed = parseInt(milliseconds, 10)
+  console.log(parsed)
+
+  if (milliseconds){
+    const date = new Date(parseInt(milliseconds, 10));
+
+    if (isNaN(date.getTime())) {
+      res.json({ error: "Invalid Date" });
+    } else {
+      res.json({
+        unix: date.getTime(),
+        utc: date.toUTCString(),
+      });
+    }
+  }else{
+    const currentDate = new Date();
+    res.send({
+      unix: currentDate.getTime(),
+      utc: currentDate.toUTCString(),
+    })
+  }
+});
+
+
 
 
 // listen for requests :)
