@@ -45,9 +45,9 @@ app.get("/api/:date?", function (req, res) {
 });
 
 app.get("/api/:milliseconds?", function (req, res) {
-  const {milliseconds} = req.params
-  if (milliseconds){
-    const date = new Date(parseInt(milliseconds, 10));
+  const {millisecond} = req.params
+  if (millisecond){
+    const date = new Date(parseInt(millisecond, 10));
 
     if (isNaN(date.getTime())) {
       res.json({ error: "Invalid Date" });
